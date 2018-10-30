@@ -1,0 +1,6 @@
+
+#cmakedefine SOPHON_CLASS_GEN_BASE
+
+#ifdef SOPHON_CLASS_GEN_BASE
+#include "${SOPHON_CLASS_GEN_BASE}/SophonSpecificInstrs.h"
+#endif

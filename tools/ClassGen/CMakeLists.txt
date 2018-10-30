@@ -1,3 +1,5 @@
+
+
 add_executable(NodeGen
                  NodeGen.cpp
                  NodeBuilder.cpp)
@@ -21,3 +23,5 @@ endif()
 if(GLOW_WITH_OPENCL)
   add_subdirectory(Backends/OpenCL)
 endif()
+  
+add_subdirectory(Backends/Sophon)

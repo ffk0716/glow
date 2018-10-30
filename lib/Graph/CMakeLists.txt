@@ -32,6 +32,10 @@ add_custom_command(OUTPUT
                    DEPENDS NodeGen
                    COMMENT "NodeGen: Generating nodes." VERBATIM)
 
+
+if (SOPHON_CLASS_GEN_BASE)
+    include_directories(${SOPHON_CLASS_GEN_BASE})
+endif()
 add_library(Graph
             ${NODES_HDR}
             ${NODES_SRC}

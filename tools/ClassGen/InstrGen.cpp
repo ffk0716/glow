@@ -532,6 +532,7 @@ int main(int argc, char **argv) {
 
 #include "Backends/CPU/CPUSpecificInstrs.h"
 #include "Backends/OpenCL/OpenCLSpecificInstrs.h"
+#include "glow/SophonSpecificInstrsIF.h"
 
   return 0;
 }
