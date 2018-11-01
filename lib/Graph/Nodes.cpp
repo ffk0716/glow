@@ -203,8 +203,8 @@ static void verifyPool(NodeValue src, NodeValue dest,
   PaddingTLBR pdim(pads);
   (void)pdim;
   ShapeHW kdim(kernels);
-  assert((idim.w + pdim.left + pdim.right) >= kdim.height &&
-         (idim.h + pdim.top + pdim.bottom) >= kdim.width &&
+  assert((idim.w + pdim.left + pdim.right) >= kdim.width &&
+         (idim.h + pdim.top + pdim.bottom) >= kdim.height &&
          "buffer too small for selected stride");
 
   auto outSz =
