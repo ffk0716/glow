@@ -396,7 +396,8 @@ llvm::StringRef Module::uniqueName(llvm::StringRef name,
     return it.first->first();
   }
 
-  for (unsigned i = 1; i < 10000; i++) {
+  //for (unsigned i = 1; i < 10000; i++) {
+  for (unsigned i = 1; i < 100000; i++) {
     auto suffix = std::to_string(i);
 
     auto it = stringTable.insert(legalName + suffix);
