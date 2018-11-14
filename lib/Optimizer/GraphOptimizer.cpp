@@ -1640,8 +1640,9 @@ static NodeValue convertConstant(Module &mod, Constant &constant,
       return NodeValue(&constantToBeModified, 0);
     }
     case ElemKind::Int32QTy:
+    case ElemKind::Int16QTy:
     case ElemKind::Int8QTy: {
-      // Quantization: {FloatTy, Float16Ty} -> Int8QTy or Int32QTy.
+      // Quantization: {FloatTy, Float16Ty} -> Int8QTy or Int16QTy or Int32QTy.
       Constant &constantToBeModified = modifyConstantTyAndGet();
       TensorQuantizationParams params{dstTy->getScale(), dstTy->getOffset()};
       Tensor &tensorToBeModified = constantToBeModified.getPayload();

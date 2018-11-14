@@ -55,6 +55,8 @@ Tensor quantizeTensor(const Tensor &tensor, const TensorQuantizationParams &TQP,
   assert(tensor.getType().isFPType() && "Type not supported yet");
   if (Ty == ElemKind::Int8QTy) {
     quantizeTensorUtil<int8_t>(&tmp, tensor);
+  } else if (Ty == ElemKind::Int16QTy) {
+    quantizeTensorUtil<int16_t>(&tmp, tensor);
   } else {
     quantizeTensorUtil<int32_t>(&tmp, tensor);
   }

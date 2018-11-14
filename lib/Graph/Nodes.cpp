@@ -189,7 +189,9 @@ static void verifyFullyConnected(NodeValue src, NodeValue weights,
          "Inconsistent bias/weights/dest sizes.");
 
   if (src.getElementType() == ElemKind::Int8QTy) {
-    assert(bias.getElementType() == ElemKind::Int32QTy && "Invalid Type");
+    assert((bias.getElementType() == ElemKind::Int16QTy ||
+            bias.getElementType() == ElemKind::Int32QTy) &&
+           "Invalid Type");
   }
 }
 
@@ -664,6 +666,7 @@ void IntLookupTableNode::verify() const {
 void QuantizeNode::verify() const {
   // Dest must be quantized.
   assert((getResult().getElementType() == ElemKind::Int8QTy ||
+          getResult().getElementType() == ElemKind::Int16QTy ||
           getResult().getElementType() == ElemKind::Int32QTy) &&
          "Invalid type");
   // Src must be an FP type.

@@ -1460,6 +1460,7 @@ QuantizeNode *Function::createQuantize(llvm::StringRef name, NodeValue input,
                                        TypeRef outTy) {
   assert(input.getType()->isFPType() && "Input must be a floating type");
   assert((outTy->getElementType() == ElemKind::Int8QTy ||
+          outTy->getElementType() == ElemKind::Int16QTy ||
           outTy->getElementType() == ElemKind::Int32QTy) &&
          "Output must be a quantized type");
   assert(input.dims().equals(outTy->dims()) &&

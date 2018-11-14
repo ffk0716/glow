@@ -93,6 +93,7 @@ void InsertTensorInst::verify() const {
 
 void QuantizeInst::verify() const {
   assert((getDest()->getElementType() == ElemKind::Int8QTy ||
+          getDest()->getElementType() == ElemKind::Int16QTy ||
           getDest()->getElementType() == ElemKind::Int32QTy) &&
          "Invalid type");
   assert((getSrc()->getElementType() == ElemKind::FloatTy ||
