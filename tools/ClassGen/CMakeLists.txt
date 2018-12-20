@@ -24,4 +24,6 @@ if(GLOW_WITH_OPENCL)
   add_subdirectory(Backends/OpenCL)
 endif()
   
-add_subdirectory(Backends/Sophon)
+if(GLOW_WITH_SOPHON)
+  add_subdirectory(Backends/Sophon)
+endif()

@@ -1,3 +1,5 @@
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+
 add_library(Backends Backends.cpp)
 
 add_library(BackendUtils BackendUtils.cpp)
@@ -17,6 +19,12 @@ endif()
 if(GLOW_WITH_CPU)
   add_subdirectory(CPU)
   LIST(APPEND linked_backends CPUBackend)
+endif()
+
+
+if(GLOW_WITH_SOPHON)
+  add_subdirectory(Sophon)
+  LIST(APPEND linked_backends Sophon)
 endif()
 
 target_link_libraries(Backends

@@ -1,8 +1,7 @@
+set(VERIF_FILENAME SophonSpecificInstrsVerification.h)
+configure_file(${VERIF_FILENAME}
+               ${GLOW_BINARY_DIR}/glow/${VERIF_FILENAME} COPYONLY)
 
-set(SOPHON_CLASS_GEN_BASE "" CACHE STRING "")
-
-configure_file(SophonSpecificInstrsIF.h.in
-    ${GLOW_BINARY_DIR}/glow/SophonSpecificInstrsIF.h)
-configure_file(SophonSpecificNodesIF.h.in
-    ${GLOW_BINARY_DIR}/glow/SophonSpecificNodesIF.h)
-
+set(VERIF_FILENAME SophonSpecificNodesVerification.h)
+configure_file(${VERIF_FILENAME}
+               ${GLOW_BINARY_DIR}/glow/${VERIF_FILENAME} COPYONLY)
