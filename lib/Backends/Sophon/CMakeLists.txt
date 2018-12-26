@@ -3,15 +3,18 @@
 # prepare Sophon external lib
 # get more info from https://sophon-edge.gitbook.io/project/getting-started/bmnnsdk-installation
 include(ExternalProject)
+set(Sophon_ext_lib ${CMAKE_CURRENT_BINARY_DIR}/sophon_sdk/src/sophon_sdk/bmtap2-bm1880-usb_1.0.2)
 ExternalProject_Add(sophon_sdk
     PREFIX sophon_sdk
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
+    BUILD_BYPRODUCTS
+    ${Sophon_ext_lib}/lib/cmodel/libbmkernel-static.a
+    ${Sophon_ext_lib}/lib/cmodel/libbmodel.so
+    ${Sophon_ext_lib}/lib/cmodel/libbmruntime.so
     GIT_REPOSITORY https://github.com/ffk0716/bm1880-bmnnsdk-usb.git
     GIT_TAG bm1880-usb_1.0.2.2-hotfix)
-ExternalProject_Get_Property(sophon_sdk SOURCE_DIR)
-set(Sophon_ext_lib ${SOURCE_DIR}/bmtap2-bm1880-usb_1.0.2)
 
 # Sophon Backend
 find_package(Protobuf REQUIRED)
