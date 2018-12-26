@@ -30,9 +30,9 @@ target_link_libraries(Sophon PRIVATE
     CodeGen
     Importer
     Quantization
-    ${Sophon_ext_lib}/lib/cmodel/libbmkernel-static.a
-    ${Sophon_ext_lib}/lib/cmodel/libbmodel.so
-    ${Sophon_ext_lib}/lib/cmodel/libbmruntime.so)
+    ${Sophon_ext_lib}/bmnet_sdk/install/lib/libbmkernel-static.a
+    ${Sophon_ext_lib}/bmnet_sdk/install/lib/libbmodel.so
+    ${Sophon_ext_lib}/bmnet_sdk/install/lib/libbmruntime.so)
 
 set(Sophon_base ${Glow_SOURCE_DIR}/lib/Backends)
 function(add_libbmnet_glow)

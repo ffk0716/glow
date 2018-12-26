@@ -10,30 +10,30 @@ set_property(CACHE Sophon_CHIP PROPERTY STRINGS ${Sophon_CHIP_LIST})
 set(Sophon_${Sophon_CHIP}_ENABLE ON)
 
 if (Sophon_BM1880_ENABLE)
-    add_bmnet_glow_test(
+    add_glow_test(
         NAME BM1880CodeGenTest
         SRCS BM1880CodeGenTest.cpp
         ARGS -enable-layer-group=false)
-    add_bmnet_glow_test(
+    add_glow_test(
         NAME BM1880Expand
         SRCS BM1880Expand.cpp)
-    add_bmnet_glow_test(
+    add_glow_test(
         NAME BM1880ExpandCodeGenTest
         SRCS BM1880ExpandCodeGenTest.cpp)
-    add_bmnet_glow_test(
+    add_glow_test(
         NAME BM1880GetLMemSizeTest
         SRCS BM1880GetLMemSizeTest.cpp)
-    add_bmnet_glow_test(
+    add_glow_test(
         NAME BM1880MemoryAllocTest
         SRCS BM1880MemoryAllocTest.cpp)
-    add_bmnet_glow_test(
+    add_glow_test(
         NAME BM1880DeleteQuantizeNodeTest
         SRCS BM1880DeleteQuantizeNodeTest.cpp)
-    add_bmnet_glow_test(
+    add_glow_test(
         NAME BM1880HIRSliceTest
         SRCS BM1880HIRSliceTest.cpp)
 endif()
 
-add_bmnet_glow_test(
+add_glow_test(
     NAME LoadStoreTest
     SRCS LoadStoreTest.cpp)
