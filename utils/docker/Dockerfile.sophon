@@ -1,0 +1,8 @@
+FROM pytorch/glow:0.1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        git \
+        openssh-client \
+        ca-certificates \
+        libgoogle-glog-dev
+

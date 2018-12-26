@@ -14,4 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-docker build -f Dockerfile -t pytorch/glow-0.1 .
+set -exu
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$SCRIPT_DIR"
+
+docker build -f Dockerfile -t pytorch/glow:0.1 .

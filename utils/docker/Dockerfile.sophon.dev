@@ -1,0 +1,20 @@
+FROM pytorch/glow/sophon:0.1
+
+# cmake
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libncurses5-dev
+WORKDIR /opt
+RUN wget --no-check-certificate http://www.cmake.org/files/v3.12/cmake-3.12.1.tar.gz && \
+        tar -xvzf cmake-3.12.1.tar.gz && \
+        cd cmake-3.12.1/ && \
+        ./bootstrap && \
+        make -j4 && \
+        make install
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        clang-format-6.0 \
+        clang-tidy-6.0
+RUN ln -s /usr/bin/clang-format-6.0 /usr/bin/clang-format
+RUN ln -s /usr/bin/clang-tidy-6.0 /usr/bin/clang-tidy
+        
+
