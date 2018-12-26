@@ -312,3 +312,5 @@ LIST(APPEND UNOPT_TESTS
 
 add_custom_target(test_unopt ${UNOPT_TESTS}
                   WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+
+add_subdirectory(Sophon)

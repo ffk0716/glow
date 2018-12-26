@@ -532,6 +532,7 @@ int main(int argc, char **argv) {
 
 #include "Backends/CPU/CPUSpecificInstrs.h"
 #include "Backends/OpenCL/OpenCLSpecificInstrs.h"
+#include "Backends/Sophon/SophonSpecificInstrs.h"
 
   return 0;
 }
