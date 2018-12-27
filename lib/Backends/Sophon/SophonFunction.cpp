@@ -15,30 +15,19 @@
 #include "glow/Graph/Context.h"
 #include "glow/Support/Debug.h"
 #include "llvm/Support/Debug.h"
-
 #include <fstream>
-#include <libbmruntime/bmruntime.h>
-#include <libbmruntime/bmruntime_bmnet.h>
 
 namespace glow {
 
 SophonFunction::SophonFunction(std::unique_ptr<bmodel::Model> model) {
   model_ = std::move(model);
-}
-
-SophonFunction::~SophonFunction() {}
-
-void SophonFunction::execute(Context &ctx) {
   DEBUG_GLOW(bmodel::print(*model_));
 
-  bmctx_t bmctx;
   bmerr_t ret;
   ret = bm_init(0, &bmctx);
   if (ret != BM_SUCCESS) {
     llvm_unreachable("bm_init failed");
   }
-  bmnet_t net;
-  bmnet_output_info_t output_info;
 
   auto bmodel_filename = []() {
     char temp[] = "/tmp/glow-ut-temp.XXXXXX";
@@ -64,9 +53,28 @@ void SophonFunction::execute(Context &ctx) {
   if (ret != BM_SUCCESS) {
     llvm_unreachable("get output failed!");
   }
+}
 
+SophonFunction::~SophonFunction() {
+  bmnet_cleanup(net);
+  bm_exit(bmctx);
+}
+
+void SophonFunction::execute() {
+
+  // run cmdbuf
+  bmerr_t ret;
+  ret = bmnet_run(net);
+  if (ret != BM_SUCCESS) {
+    llvm_unreachable("run failed!");
+  }
+}
+void SophonFunction::setupRuns() {}
+
+void SophonFunction::beforeRun(const Context &ctx) {
   // TODO support multiple inputs
   std::vector<uint8_t> input;
+  bmerr_t ret;
 
   for (auto PH : ctx.pairs()) {
     // input if fail to find "save_" prefix
@@ -83,23 +91,17 @@ void SophonFunction::execute(Context &ctx) {
   if (ret != BM_SUCCESS) {
     llvm_unreachable("load input failed!");
   }
+}
 
-  // run cmdbuf
-  ret = bmnet_run(net);
-  if (ret != BM_SUCCESS) {
-    llvm_unreachable("run failed!");
-  }
-
+void SophonFunction::afterRun(const Context &ctx) {
   size_t output_size = output_info.output_size;
   std::vector<uint8_t> output(output_size);
+  bmerr_t ret;
   // download output data
   ret = bmnet_store_output(net, output.data());
   if (ret != BM_SUCCESS) {
     llvm_unreachable("store output failed!");
   }
-
-  bmnet_cleanup(net);
-  bm_exit(bmctx);
 
   // TODO support multiple outputs
   for (auto PH : ctx.pairs()) {
@@ -110,5 +112,7 @@ void SophonFunction::execute(Context &ctx) {
     }
   }
 }
+
+void SophonFunction::tearDownRuns() {}
 
 } // namespace glow

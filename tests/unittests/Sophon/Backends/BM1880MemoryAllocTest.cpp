@@ -70,7 +70,7 @@ TEST(BM1880MemAllocTest, ConvMemAllocRun) {
 
   // run backend flow
   std::unique_ptr<BM1880Backend> backend(new BM1880Backend());
-  BM1880AllocationsInfo alloc_info(ctx, backend->getTTI());
+  BM1880AllocationsInfo alloc_info(backend->getTTI());
   backend->runOptimizationPasses(IR.get(), &alloc_info);
 
   // check alloc info
@@ -113,7 +113,14 @@ TEST(BM1880MemAllocTest, ConvMemAllocRun) {
 #endif
 
   // codegen and run
-  backend->codegen(std::move(IR), &alloc_info)->execute(ctx);
+  {
+    auto function = backend->codegen(std::move(IR), &alloc_info);
+    function->setupRuns();
+    function->beforeRun(ctx);
+    function->execute();
+    function->afterRun(ctx);
+    function->tearDownRuns();
+  }
 
   // check result
   auto H = outputTensor->getHandle<int8_t>();

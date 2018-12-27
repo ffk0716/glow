@@ -73,7 +73,7 @@ TEST(BM1880ExpandTest, ExpandConvQ8) {
   std::advance(cur_inst, 4);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIConvolutionQ8InstKind);
-  auto *MI_inst = llvm::cast<SophonMIConvolutionQ8Inst>(cur_inst);
+  auto *MI_inst = llvm::cast<SophonMIConvolutionQ8Inst>(&*cur_inst);
   EXPECT_EQ(MI_inst->getDest()->getName(), lmem_out->getName());
   EXPECT_EQ(MI_inst->getSrc()->getName(), lmem_in->getName());
   EXPECT_EQ(MI_inst->getFilter()->getName(), lmem_weight->getName());
@@ -133,7 +133,7 @@ TEST(BM1880ExpandTest, ExpandMaxPoolingQ8) {
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIMaxPoolingQ8InstKind);
-  auto *pool_inst = llvm::cast<SophonMIMaxPoolingQ8Inst>(cur_inst);
+  auto *pool_inst = llvm::cast<SophonMIMaxPoolingQ8Inst>(&*cur_inst);
   EXPECT_EQ(pool_inst->getDest()->getName(), lmem_out->getName());
   EXPECT_EQ(pool_inst->getSrc()->getName(), lmem_in->getName());
   EXPECT_EQ(pool_inst->getKernelHW(),
@@ -146,7 +146,7 @@ TEST(BM1880ExpandTest, ExpandMaxPoolingQ8) {
   std::advance(cur_inst, 1);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIMulConstQ8InstKind);
-  auto *mul_inst = llvm::cast<SophonMIMulConstQ8Inst>(cur_inst);
+  auto *mul_inst = llvm::cast<SophonMIMulConstQ8Inst>(&*cur_inst);
   EXPECT_EQ(mul_inst->getDest()->getName(), lmem_out->getName());
   EXPECT_EQ(mul_inst->getSrc()->getName(), lmem_out->getName());
   EXPECT_EQ(mul_inst->getMultiplier(), multiplier);
@@ -182,7 +182,7 @@ TEST(BM1880ExpandTest, ExpandReluQ8) {
   auto cur_inst = IR->getInstrs().begin();
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(), glow::Kinded::Kind::SophonMIReluQ8InstKind);
-  auto *relu_inst = llvm::cast<SophonMIReluQ8Inst>(cur_inst);
+  auto *relu_inst = llvm::cast<SophonMIReluQ8Inst>(&*cur_inst);
   EXPECT_EQ(relu_inst->getDest()->getName(), lmem_out->getName());
   EXPECT_EQ(relu_inst->getSrc()->getName(), lmem_in->getName());
 }
@@ -236,7 +236,7 @@ TEST(BM1880ExpandTest, ExpandFcQ8) {
   auto cur_inst = IR->getInstrs().begin();
   std::advance(cur_inst, 4);
   EXPECT_EQ(cur_inst->getKind(), glow::Kinded::Kind::SophonMIFCQ8InstKind);
-  auto *fc_inst = llvm::cast<SophonMIFCQ8Inst>(cur_inst);
+  auto *fc_inst = llvm::cast<SophonMIFCQ8Inst>(&*cur_inst);
   EXPECT_EQ(fc_inst->getDest()->getName(), lmem_out->getName());
   EXPECT_EQ(fc_inst->getSrc()->getName(), lmem_in->getName());
   EXPECT_EQ(fc_inst->getFilter()->getName(), lmem_weights->getName());
@@ -296,7 +296,7 @@ TEST(BM1880ExpandTest, ExpandFcReluQ8) {
   auto cur_inst = IR->getInstrs().begin();
   std::advance(cur_inst, 4);
   EXPECT_EQ(cur_inst->getKind(), glow::Kinded::Kind::SophonMIFCQ8InstKind);
-  auto *fc_inst = llvm::cast<SophonMIFCQ8Inst>(cur_inst);
+  auto *fc_inst = llvm::cast<SophonMIFCQ8Inst>(&*cur_inst);
   EXPECT_EQ(fc_inst->getDest()->getName(), lmem_out->getName());
   EXPECT_EQ(fc_inst->getSrc()->getName(), lmem_in->getName());
   EXPECT_EQ(fc_inst->getFilter()->getName(), lmem_weights->getName());
@@ -335,7 +335,7 @@ TEST(BM1880ExpandTest, ExpandLoadQ8) {
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIGDMAGlobalToLocalInstKind);
-  auto *load_input = llvm::cast<SophonMIGDMAGlobalToLocalInst>(cur_inst);
+  auto *load_input = llvm::cast<SophonMIGDMAGlobalToLocalInst>(&*cur_inst);
   EXPECT_EQ(load_input->getShapeNCHW(), (llvm::ArrayRef<unsigned>{1, 1, 3, 3}));
   EXPECT_EQ(load_input->getGlobalStrideNCH(),
             (llvm::ArrayRef<unsigned>{1 * 3 * 3, 3 * 3, 3}));
@@ -345,7 +345,7 @@ TEST(BM1880ExpandTest, ExpandLoadQ8) {
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIGDMAGlobalToLocalInstKind);
-  auto *load_weight = llvm::cast<SophonMIGDMAGlobalToLocalInst>(cur_inst);
+  auto *load_weight = llvm::cast<SophonMIGDMAGlobalToLocalInst>(&*cur_inst);
   EXPECT_EQ(load_weight->getShapeNCHW(),
             (llvm::ArrayRef<unsigned>{1, 3, 9, 1}));
   EXPECT_EQ(load_weight->getGlobalStrideNCH(),
@@ -356,7 +356,7 @@ TEST(BM1880ExpandTest, ExpandLoadQ8) {
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIGDMAGlobalToLocalInstKind);
-  auto *load_bias = llvm::cast<SophonMIGDMAGlobalToLocalInst>(cur_inst);
+  auto *load_bias = llvm::cast<SophonMIGDMAGlobalToLocalInst>(&*cur_inst);
   EXPECT_EQ(load_bias->getShapeNCHW(), (llvm::ArrayRef<unsigned>{2, 3, 1, 1}));
   EXPECT_EQ(load_bias->getGlobalStrideNCH(),
             (llvm::ArrayRef<unsigned>{3 * 1 * 1, 1 * 1, 1}));
@@ -366,7 +366,7 @@ TEST(BM1880ExpandTest, ExpandLoadQ8) {
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIGDMALocalToGlobalInstKind);
-  auto *store = llvm::cast<SophonMIGDMALocalToGlobalInst>(cur_inst);
+  auto *store = llvm::cast<SophonMIGDMALocalToGlobalInst>(&*cur_inst);
   EXPECT_EQ(store->getShapeNCHW(), (llvm::ArrayRef<unsigned>{1, 3, 3, 3}));
   EXPECT_EQ(store->getGlobalStrideNCH(),
             (llvm::ArrayRef<unsigned>{3 * 3 * 3, 3 * 3, 3}));
@@ -405,7 +405,7 @@ TEST(BM1880ExpandTest, ExpandLoadStoreFcQ8) {
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIGDMAGlobalToLocalInstKind);
-  auto *load_input = llvm::cast<SophonMIGDMAGlobalToLocalInst>(cur_inst);
+  auto *load_input = llvm::cast<SophonMIGDMAGlobalToLocalInst>(&*cur_inst);
   EXPECT_EQ(load_input->getShapeNCHW(),
             (llvm::ArrayRef<unsigned>{1, 25, 1, 32})); // 25=800/32
   EXPECT_EQ(load_input->getGlobalStrideNCH(),
@@ -417,7 +417,7 @@ TEST(BM1880ExpandTest, ExpandLoadStoreFcQ8) {
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIGDMAGlobalToLocalInstKind);
-  auto *load_weight = llvm::cast<SophonMIGDMAGlobalToLocalInst>(cur_inst);
+  auto *load_weight = llvm::cast<SophonMIGDMAGlobalToLocalInst>(&*cur_inst);
   EXPECT_EQ(load_weight->getShapeNCHW(),
             (llvm::ArrayRef<unsigned>{800, 16, 1, 32})); // 16=500/32
   EXPECT_EQ(load_weight->getGlobalStrideNCH(),
@@ -429,7 +429,7 @@ TEST(BM1880ExpandTest, ExpandLoadStoreFcQ8) {
   std::advance(cur_inst, 2);
   EXPECT_EQ(cur_inst->getKind(),
             glow::Kinded::Kind::SophonMIGDMAGlobalToLocalInstKind);
-  auto *load_bias = llvm::cast<SophonMIGDMAGlobalToLocalInst>(cur_inst);
+  auto *load_bias = llvm::cast<SophonMIGDMAGlobalToLocalInst>(&*cur_inst);
   EXPECT_EQ(load_bias->getShapeNCHW(),
             (llvm::ArrayRef<unsigned>{2, 16, 1, 32})); // 16=500/32
   EXPECT_EQ(load_bias->getGlobalStrideNCH(),

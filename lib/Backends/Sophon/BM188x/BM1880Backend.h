@@ -34,7 +34,7 @@ public:
   ~BM1880Backend() override = default;
 
   std::unique_ptr<CompiledFunction>
-  compileIR(std::unique_ptr<IRFunction> IR, const Context &ctx) const override;
+  compileIR(std::unique_ptr<IRFunction> IR) const override;
   std::unique_ptr<CompiledFunction>
   codegen(std::unique_ptr<IRFunction> IR,
           AllocationsInfo *allocationsInfo) const;
@@ -43,8 +43,7 @@ public:
                              BM1880AllocationsInfo *allocationsInfo) const;
 
   /// JIT Mode: compile to FunctionCompiled
-  std::unique_ptr<CompiledFunction> compile(Function *F,
-                                            const Context &ctx) const override;
+  std::unique_ptr<CompiledFunction> compile(Function *F) const override;
 
   /// AOT Mode: save to bmodel
   void save(Function *F, llvm::StringRef outputDir,

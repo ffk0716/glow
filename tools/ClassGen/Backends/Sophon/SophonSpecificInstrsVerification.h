@@ -15,24 +15,29 @@
  */
 #ifdef GLOW_WITH_SOPHON
 
-void SophonConvolutionQ8Node::verify() const {
+bool SophonConvolutionQ8Node::verify() const {
   // TBD
+  return true;
 }
 
-void SophonFullyConnectedQ8Node::verify() const {
+bool SophonFullyConnectedQ8Node::verify() const {
   // TBD
+  return true;
 }
 
-void SophonReluQ8Node::verify() const {
+bool SophonReluQ8Node::verify() const {
   // TBD
+  return true;
 }
 
-void SophonMaxPoolQ8Node::verify() const {
+bool SophonMaxPoolQ8Node::verify() const {
   // TBD
+  return true;
 }
 
-void SophonAvgPoolQ8Node::verify() const {
+bool SophonAvgPoolQ8Node::verify() const {
   // TBD
+  return true;
 }
 
 void SophonLoadInst::verify() const {

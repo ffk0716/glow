@@ -18,10 +18,10 @@
 using namespace glow;
 
 template <class T>
-static auto Inst(T &t, size_t idx) -> decltype(t->getInstrs().begin()) {
+static auto Inst(T &t, size_t idx) -> decltype(&*t->getInstrs().begin()) {
   auto cur_inst = t->getInstrs().begin();
   std::advance(cur_inst, idx);
-  return cur_inst;
+  return &*cur_inst;
 }
 
 TEST(BM1880ExapndCodeGenTest, ConvQ8Run) {
@@ -115,7 +115,14 @@ TEST(BM1880ExapndCodeGenTest, ConvQ8Run) {
   mem_lut[llvm::cast<Value>(Inst(IR, 5))] = 2 * 32 + 1024 * 32; // size: 2 * 32
 
   // run
-  backend->codegen(std::move(IR), &allocInfo)->execute(ctx);
+  {
+    auto function = backend->codegen(std::move(IR), &allocInfo);
+    function->setupRuns();
+    function->beforeRun(ctx);
+    function->execute();
+    function->afterRun(ctx);
+    function->tearDownRuns();
+  }
 
   // check result
   auto H = outputTensor->getHandle<int8_t>();
@@ -273,7 +280,14 @@ TEST(BM1880ExapndCodeGenTest, LIRFC) {
   mem_lut[llvm::cast<Value>(Inst(IR, 5))] = 2 * 32 + 1024 * 32; // size: 2 * 32
 
   // 6. run on cmodel
-  backend->codegen(std::move(IR), &allocInfo)->execute(ctx);
+  {
+    auto function = backend->codegen(std::move(IR), &allocInfo);
+    function->setupRuns();
+    function->beforeRun(ctx);
+    function->execute();
+    function->afterRun(ctx);
+    function->tearDownRuns();
+  }
 
   auto H = outputTensor->getHandle<int8_t>();
   for (unsigned i = 0; i < N; i++) {

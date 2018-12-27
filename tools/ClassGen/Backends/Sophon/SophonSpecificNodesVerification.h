@@ -15,7 +15,7 @@
  */
 #ifdef GLOW_WITH_SOPHON
 
-void SophonConvolutionNode::verify() const {
+bool SophonConvolutionNode::verify() const {
   // TODO: just demo
   ShapeNCHW idim(getInput().getType()->dims());
   ShapeNCHW odim(getResult().getType()->dims());
@@ -24,72 +24,73 @@ void SophonConvolutionNode::verify() const {
   ShapeNCHW exp(idim.n, getBias().dims()[0], outSz.first, outSz.second);
   (void)exp;
   assert(exp == odim && "Invalid output dimensions");
+  return true;
 }
 
-void SophonConvolutionWithoutBiasNode::verify() const {}
+bool SophonConvolutionWithoutBiasNode::verify() const { return true; }
 
-void SophonMaxPoolNode::verify() const {}
-void SophonAvgPoolNode::verify() const {}
-void SophonFullyConnectedNode::verify() const {}
-void SophonMatMulNode::verify() const {}
+bool SophonMaxPoolNode::verify() const { return true; }
+bool SophonAvgPoolNode::verify() const { return true; }
+bool SophonFullyConnectedNode::verify() const { return true; }
+bool SophonMatMulNode::verify() const { return true; }
 
-void SophonNormalizeNode::verify() const {}
-void SophonBatchNormalizationNode::verify() const {}
-void SophonBatchNormalizationOptNode::verify() const {}
-void SophonLocalResponseNormalizationNode::verify() const {}
+bool SophonNormalizeNode::verify() const { return true; }
+bool SophonBatchNormalizationNode::verify() const { return true; }
+bool SophonBatchNormalizationOptNode::verify() const { return true; }
+bool SophonLocalResponseNormalizationNode::verify() const { return true; }
 
-void SophonReluNode::verify() const {}
-void SophonTanhNode::verify() const {}
-void SophonSigmoidNode::verify() const {}
-void SophonPreluNode::verify() const {}
+bool SophonReluNode::verify() const { return true; }
+bool SophonTanhNode::verify() const { return true; }
+bool SophonSigmoidNode::verify() const { return true; }
+bool SophonPreluNode::verify() const { return true; }
 
-void SophonSoftMaxNode::verify() const {}
-void SophonPriorboxNode::verify() const { assert(0); }
-void SophonUpsampleNode::verify() const {}
-void SophonDeconvolutionNode::verify() const {}
-void SophonDeconvolutionWithoutBiasNode::verify() const {}
-void SophonDeconvolutionOptNode::verify() const {}
-void SophonDeconvolutionWithoutBiasOptNode::verify() const {}
-void SophonROIPoolNode::verify() const {}
-void SophonPSROIPoolNode::verify() const {}
-void SophonMultiRegionNode::verify() const {}
-void SophonLSTMNode::verify() const {}
-void SophonShuffleChannelNode::verify() const {}
-void SophonSliceNode::verify() const {}
+bool SophonSoftMaxNode::verify() const { return true; }
+bool SophonPriorboxNode::verify() const { assert(0); }
+bool SophonUpsampleNode::verify() const { return true; }
+bool SophonDeconvolutionNode::verify() const { return true; }
+bool SophonDeconvolutionWithoutBiasNode::verify() const { return true; }
+bool SophonDeconvolutionOptNode::verify() const { return true; }
+bool SophonDeconvolutionWithoutBiasOptNode::verify() const { return true; }
+bool SophonROIPoolNode::verify() const { return true; }
+bool SophonPSROIPoolNode::verify() const { return true; }
+bool SophonMultiRegionNode::verify() const { return true; }
+bool SophonLSTMNode::verify() const { return true; }
+bool SophonShuffleChannelNode::verify() const { return true; }
+bool SophonSliceNode::verify() const { return true; }
 
-void SophonConcatNode::verify() const {}
-void SophonConcat2Node::verify() const {}
-void SophonConcat3Node::verify() const {}
-void SophonConcat4Node::verify() const {}
-void SophonConcat5Node::verify() const {}
-void SophonConcat6Node::verify() const {}
-void SophonReshapeNode::verify() const {}
-void SophonTransposeNode::verify() const {}
-void SophonFlattenNode::verify() const {}
-void SophonCropNode::verify() const {}
-void SophonReorgNode::verify() const {}
-void SophonPermuteNode::verify() const {}
-void SophonDummyDataNode::verify() const {}
-void SophonEltwiseNode::verify() const {}
-void SophonTileNode::verify() const {}
+bool SophonConcatNode::verify() const { return true; }
+bool SophonConcat2Node::verify() const { return true; }
+bool SophonConcat3Node::verify() const { return true; }
+bool SophonConcat4Node::verify() const { return true; }
+bool SophonConcat5Node::verify() const { return true; }
+bool SophonConcat6Node::verify() const { return true; }
+bool SophonReshapeNode::verify() const { return true; }
+bool SophonTransposeNode::verify() const { return true; }
+bool SophonFlattenNode::verify() const { return true; }
+bool SophonCropNode::verify() const { return true; }
+bool SophonReorgNode::verify() const { return true; }
+bool SophonPermuteNode::verify() const { return true; }
+bool SophonDummyDataNode::verify() const { return true; }
+bool SophonEltwiseNode::verify() const { return true; }
+bool SophonTileNode::verify() const { return true; }
 
-void SophonScaleNode::verify() const {}
-void SophonScaleWithoutBiasNode::verify() const {}
-void SophonScale1Node::verify() const {}
-void SophonMulNode::verify() const {}
-void SophonAddNode::verify() const {}
-void SophonMaxNode::verify() const {}
-void SophonPowNode::verify() const {}
-void SophonAbsNode::verify() const {}
-void SophonSubNode::verify() const {}
-void SophonDivNode::verify() const {}
+bool SophonScaleNode::verify() const { return true; }
+bool SophonScaleWithoutBiasNode::verify() const { return true; }
+bool SophonScale1Node::verify() const { return true; }
+bool SophonMulNode::verify() const { return true; }
+bool SophonAddNode::verify() const { return true; }
+bool SophonMaxNode::verify() const { return true; }
+bool SophonPowNode::verify() const { return true; }
+bool SophonAbsNode::verify() const { return true; }
+bool SophonSubNode::verify() const { return true; }
+bool SophonDivNode::verify() const { return true; }
 
-void SophonProposalNode::verify() const { assert(0); }
-void SophonRegionNode::verify() const {}
-void SophonYoloNode::verify() const {}
-void SophonInterpNode::verify() const {}
+bool SophonProposalNode::verify() const { assert(0); }
+bool SophonRegionNode::verify() const { return true; }
+bool SophonYoloNode::verify() const { return true; }
+bool SophonInterpNode::verify() const { return true; }
 
-// void SophonSliceNode::verify() const {}
-void SophonReductionNode::verify() const {}
+// bool SophonSliceNode::verify() const {return true;}
+bool SophonReductionNode::verify() const { return true; }
 
 #endif

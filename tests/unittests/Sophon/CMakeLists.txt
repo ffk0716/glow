@@ -9,7 +9,7 @@ function(add_glow_sophon_test)
         ${ARG_LIBS}
         Sophon
         gtest
-        testMain)
+        TestMain)
     add_glow_test(
         NAME sophon_${ARG_NAME}
         COMMAND ${ARG_NAME} ${ARG_ARGS})

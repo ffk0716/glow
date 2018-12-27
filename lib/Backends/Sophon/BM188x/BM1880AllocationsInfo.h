@@ -27,13 +27,11 @@ private:
   /// Amount of memory to be allocated for activations.
   size_t local_memory_sizes_{0};
 
-  const Context *ctx_;
   const sophon::SophonTargetTransformInfo *TTI_;
 
 public:
   BM1880AllocationsInfo();
-  BM1880AllocationsInfo(const Context &ctx,
-                        const sophon::SophonTargetTransformInfo *TTI);
+  BM1880AllocationsInfo(const sophon::SophonTargetTransformInfo *TTI);
   void allocateWeightVars(const IRFunction *F) override;
   void allocateActivations(const IRFunction *F) override;
   void allocateTensorViews(const IRFunction *F) override {

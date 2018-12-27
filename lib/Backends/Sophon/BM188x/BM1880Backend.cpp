@@ -51,24 +51,21 @@ BM1880Backend::codegen(std::unique_ptr<IRFunction> IR,
 }
 
 std::unique_ptr<CompiledFunction>
-BM1880Backend::compileIR(std::unique_ptr<IRFunction> IR,
-                         const Context &ctx) const {
-  BM1880AllocationsInfo allocationsInfo(ctx, getTTI());
+BM1880Backend::compileIR(std::unique_ptr<IRFunction> IR) const {
+  BM1880AllocationsInfo allocationsInfo(getTTI());
   runOptimizationPasses(IR.get(), &allocationsInfo);
   return codegen(std::move(IR), &allocationsInfo);
 }
 
-std::unique_ptr<CompiledFunction>
-BM1880Backend::compile(Function *F, const Context &ctx) const {
+std::unique_ptr<CompiledFunction> BM1880Backend::compile(Function *F) const {
   auto IR = generateAndOptimizeIR(F, true /*shouldShareBuffers*/);
-  return compileIR(std::move(IR), ctx);
+  return compileIR(std::move(IR));
 }
 
 void BM1880Backend::save(Function *F, llvm::StringRef outputDir,
                          llvm::StringRef networkName) const {
   auto IR = generateAndOptimizeIR(F, true /*shouldShareBuffers*/);
-  Context ctx;
-  BM1880AllocationsInfo allocationsInfo(ctx, getTTI());
+  BM1880AllocationsInfo allocationsInfo(getTTI());
   runOptimizationPasses(IR.get(), &allocationsInfo);
   auto b = Bundle(this, allocationsInfo);
   auto model = b.codegen(IR.get());

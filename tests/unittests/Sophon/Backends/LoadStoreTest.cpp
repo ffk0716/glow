@@ -15,10 +15,10 @@ using namespace glow;
 using namespace std;
 
 template <class T>
-static auto Inst(T &t, size_t idx) -> decltype(t->getInstrs().begin()) {
+static auto Inst(T &t, size_t idx) -> decltype(&*t->getInstrs().begin()) {
   auto cur_inst = t->getInstrs().begin();
   std::advance(cur_inst, idx);
-  return cur_inst;
+  return &*cur_inst;
 }
 
 class LoadStoreTest : public ::testing::Test {

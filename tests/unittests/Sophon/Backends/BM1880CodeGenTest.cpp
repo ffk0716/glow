@@ -326,7 +326,14 @@ TEST(BM1880CodeGenTest, LIRConvCompileRun) {
   }
 
   backend->reorderWeights(IR.get());
-  backend->codegen(std::move(IR), &allocInfo)->execute(ctx);
+  {
+    auto function = backend->codegen(std::move(IR), &allocInfo);
+    function->setupRuns();
+    function->beforeRun(ctx);
+    function->execute();
+    function->afterRun(ctx);
+    function->tearDownRuns();
+  }
 
   auto H = outputTensor->getHandle<int8_t>();
   EXPECT_EQ(H.at({0, 0, 0, 0}), 1);
@@ -510,7 +517,14 @@ TEST(BM1880CodeGenTest, LIRFCRun) {
 
   std::unique_ptr<BM1880Backend> backend(new BM1880Backend());
   backend->reorderWeights(IR.get());
-  backend->codegen(std::move(IR), &allocInfo)->execute(ctx);
+  {
+    auto function = backend->codegen(std::move(IR), &allocInfo);
+    function->setupRuns();
+    function->beforeRun(ctx);
+    function->execute();
+    function->afterRun(ctx);
+    function->tearDownRuns();
+  }
 
   auto H = ctx_fc_y->getHandle<int8_t>();
   for (unsigned i = 0; i < N; i++) {

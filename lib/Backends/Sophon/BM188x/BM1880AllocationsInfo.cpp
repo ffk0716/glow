@@ -17,11 +17,11 @@ using llvm::cast;
 using llvm::dyn_cast;
 using llvm::isa;
 
-BM1880AllocationsInfo::BM1880AllocationsInfo() : ctx_(nullptr), TTI_(nullptr) {}
+BM1880AllocationsInfo::BM1880AllocationsInfo() : TTI_(nullptr) {}
 
 BM1880AllocationsInfo::BM1880AllocationsInfo(
-    const Context &ctx, const sophon::SophonTargetTransformInfo *TTI)
-    : ctx_(&ctx), TTI_(TTI) {}
+    const sophon::SophonTargetTransformInfo *TTI)
+    : TTI_(TTI) {}
 
 void BM1880AllocationsInfo::allocateWeightVars(const IRFunction *F) {
 
