@@ -42,7 +42,7 @@ function(add_libbmnet_glow)
     string(REPLACE "-" "_" target_name ${target_name})
     set(target_name ${target_name}_obj)
     add_library(${target_name} OBJECT ${ARGN})
-    add_dependencies(${target_name} sophon_sdk)
+    add_dependencies(${target_name} sophon_sdk AutoGen)
     target_sources(Sophon PRIVATE $<TARGET_OBJECTS:${target_name}>)
 endfunction()
 
