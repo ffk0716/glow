@@ -10,9 +10,9 @@ ExternalProject_Add(sophon_sdk
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
     BUILD_BYPRODUCTS
-    ${Sophon_ext_lib}/lib/cmodel/libbmkernel-static.a
-    ${Sophon_ext_lib}/lib/cmodel/libbmodel.so
-    ${Sophon_ext_lib}/lib/cmodel/libbmruntime.so
+    ${Sophon_ext_lib}/bmnet_sdk/install/lib/libbmkernel-static.a
+    ${Sophon_ext_lib}/bmnet_sdk/install/lib/libbmodel.so
+    ${Sophon_ext_lib}/bmnet_sdk/install/lib/libbmruntime.so
     GIT_REPOSITORY https://github.com/ffk0716/bm1880-bmnnsdk-usb.git
     GIT_TAG bm1880-usb_1.0.2.2-hotfix)
 
